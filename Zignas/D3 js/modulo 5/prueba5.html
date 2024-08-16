@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Slider -simpler
+    </title>
+    </script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+</head>
+
+<body class="text-dark" style="color: black;">
+    <div class="container">
+    </div>
+</body>
+
+<script>
+    let margen = {
+        sup:40,
+        inf:40,
+        izq:70,
+        der:10
+    }
+
+    let svgw = 500;
+    let svgh = 400;
+    
+    // let pelicula = [
+    //     {nombre:'asfasdf', cal:7.8, gan:1034456, dur:125},
+    //     {nombre:'asfasdf', cal:8, gan:1134456, dur:125},
+    //     {nombre:'asfasdf', cal:9, gan:1334456, dur:125},
+    //     {nombre:'asfasdf', cal:6, gan:1236000, dur:125},
+    //     {nombre:'asfasdf', cal:5.8, gan:1230000, dur:125},
+    //     {nombre:'asfasdf', cal:1, gan:0, dur:125}
+    // ]
+    d3.csv("./peliculas.csv").get(function(data){
+        var peliculas = data.map(d=>{
+            obj = {}
+            obj.cal = parseInt(d.cal);
+            obj.gan = parseInt(d.gan);
+
+            return obj
+
+
+        })
+        // console.log(dataNumber);
+
+        console.log(peliculas)
+        // console.log(pelicula)
+        
+        let vizw = svgw-margen.izq-margen.der;
+        let vizh = svgh-margen.sup-margen.inf;
+
+    var misvg = d3.select('div.container')
+    .append('svg')
+    .attr('width', svgw)
+    .attr('height',svgh)
+    
+    let escala_x = d3.scaleLinear()
+    .domain([0,10])
+    .range([0,vizw])
+    
+    let escala_y = d3.scaleLinear()
+    .domain([0,1500000])
+    .range([vizh, 0]) //se invierte para que el 0,0 esté abajo
+    
+    let eje_x = d3.axisBottom(escala_x)
+    
+    misvg.append("g")
+    .attr("transform", `translate(${margen.izq}, ${(margen.sup+vizh)})`)
+    .call(eje_x)
+    .attr('fill','#40F99B')
+    
+    let eje_y = d3.axisLeft(escala_y)
+    
+    misvg.append("g")
+    .attr("transform", `translate(${margen.izq}, ${(margen.sup)})`)
+    .call(eje_y)
+    .attr('fill','#40F99B')
+    
+    misvg
+    .append('g')
+    .attr("transform", `translate(${margen.izq}, ${margen.sup})`)
+    .selectAll('circle')
+    .data(peliculas)
+    .enter()
+    .append('circle')
+    .attr('cx', d=>escala_x(d.cal))
+    .attr('cy', d=>escala_y(d.gan))
+    .attr('r', 5)
+});
+    
+</script>
+
+</html>

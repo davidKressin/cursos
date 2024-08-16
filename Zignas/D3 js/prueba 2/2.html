@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Ejemplo d3.select()
+    </title>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> -->
+    </script>
+    <style>
+        svg text {
+            fill: green;
+            font: 15px sans-serif;
+            text-anchor: end;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+
+<body>
+
+    <h1 id="h1">Texto de la página</h1>
+    <svg style="padding: 0px;"></svg>
+
+
+    <script>
+        var datos = [10, 30, 30, 40, 50,60,70,80,90,100,110,180,130,140, 180];
+
+        let anchoBarra = 20;
+        let alto = d3.max(datos)+d3.min(datos);
+
+        let y = d3.scaleLinear()
+            .domain([0, alto])
+            .range([
+                0
+                // d3.max(datos)
+                ,alto])
+        // console.log(y)
+
+        let ejeY = d3.axisLeft()
+            .ticks(16)
+            .scale(y)
+
+        // console.log(datos.length)
+        
+        let svg = d3.select('svg')
+            .attr('width', (datos.length) * (anchoBarra + 100))
+            .attr('height', alto+200)
+            .attr('padding', 100)
+            .append('g')
+            .attr('transform', 'translate(60,20)')
+            .call(ejeY)
+
+        svg.selectAll('rect')
+            .data(datos)
+            .enter()
+            .append('rect')
+            .attr('fill', 'crimson')
+            .attr('width', anchoBarra)
+            .attr('stroke', 'red')
+            .attr('y', function (d) { console.log(d);  return 0 })
+            .attr('x', function (d, i) { return (i) * (anchoBarra) })
+            .attr('height', y )
+
+    </script>
+</body>
+
+</html>

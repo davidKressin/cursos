@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Ejemplo d3.select()
+    </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+
+<body>
+
+    <h1 id="h1">Texto de la página</h1>
+    <div id="svg">
+
+    </div>
+
+    <script>
+        var propiedadesSvg = ["100%", "100%"]
+        var propiedadesCircle = [{
+            cx: "500",
+            cy: "500",
+            r: "40",
+            stroke:
+                "green",
+            strokeWidth: "4",
+            duration: 3000,
+            transform: "scale(2)",
+            fill: "yellow"
+        }]
+        var propiedadesRect = [{
+            x: 50,
+            y: 50,
+            height: 50,
+            width: 50,
+            llenar: "#00A5E3",
+            duration: 3000,
+            transform: "rotate(50)"
+        }]
+
+        var propiedadesEllipse = [{
+            cx:"100",
+            cy:"50",
+            rx:"100",
+            ry:"50"
+
+        }]
+
+        var a = d3.select("h1").text("hola");
+        // document.getElementById("svg").append(svg).style.width(propiedadesSvg[0]);
+        // var element = 
+        d3.select("h1").style("color", "red");
+        var svg = d3.select("#svg").append("svg")
+            .style("width", propiedadesSvg[0])
+            .style("height", propiedadesSvg[1]);
+
+        svg.append("rect")
+            .attr("x", propiedadesRect[0].x)
+            .attr("y", propiedadesRect[0].y)
+            .attr("height", propiedadesRect[0].height)
+            .attr("width", propiedadesRect[0].width)
+            .attr("fill", propiedadesRect[0].llenar)
+            .transition()
+            .duration(propiedadesRect[0].duration)
+            .attr("transform", propiedadesRect[0].transform)
+
+        svg.append("circle") //Drawing circle
+            .attr("cx", propiedadesCircle[0].cx)
+            .attr("cy", propiedadesCircle[0].cy)
+            .attr("r", propiedadesCircle[0].r)
+            .attr("fill", propiedadesCircle[0].fill)
+            .transition() // line 13 and 14 will be explain in detail in next lesson
+            .duration(propiedadesCircle[0].duration)
+            .attr("transform", propiedadesCircle[0].transform)
+            
+            svg.append("ellipse")
+            .attr("cx", propiedadesEllipse[0].cx)
+            .attr("cy", propiedadesEllipse[0].cy)
+            .attr("rx", propiedadesEllipse[0].rx)
+            .attr("ry", propiedadesEllipse[0].ry)
+            .transition() // line 13 and 14 will be explain in detail in next lesson
+            .duration(propiedadesCircle[0].duration)
+            .attr("transform", propiedadesCircle[0].transform)
+            
+
+    </script>
+</body>
+
+</html>

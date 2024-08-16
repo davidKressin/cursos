@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Ejemplo d3.select()
+    </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+
+<body>
+
+    <h1 id="h1">Texto de la página</h1>
+    <div id="svg">
+        <svg>
+            <g>
+                <ellipse cx="89" cy="89" rx="50" ry="50" style="fill: blue;"></ellipse>
+            </g>
+        </svg>
+    </div>
+
+    <script>
+        var atributosRect = {
+            x: '0',
+            y: '100',
+            width: '200',
+            height: '200',
+            fill: '#00A5E3'
+        }
+
+        var attrCircle = {
+            cx:"300",
+            cy:"200",
+            r:"100"
+        }
+        var attrText = {
+            x:"500",
+            y:"200",
+            fontSize:"60",
+            textAnchor: "middle",
+            text: "Holaaa",
+            fill: "black",
+        }
+        var svg = d3.select('#svg').append("svg")
+            .attr("width", '1000')
+            .attr("height", '1000');
+
+        svg.append('rect')
+            .attr('x', atributosRect.x )
+            .attr('y', atributosRect.y )
+            .attr('width', atributosRect.width )
+            .attr('height', atributosRect.height )
+            .attr('fill', atributosRect.fill )
+
+        svg.append('circle')
+            .attr('cx', attrCircle.cx)
+            .attr('cy', attrCircle.cy)
+            .attr('r', attrCircle.r)
+
+        svg.append('text')
+            .attr("x", attrText.x)
+            .attr("y", attrText.y)
+            .attr("font-size", attrText.fontSize)
+            .attr("text-anchor", attrText.textAnchor)
+            .attr("fill", attrText.fill)
+            .text(attrText.text)
+    </script>
+</body>
+
+</html>
